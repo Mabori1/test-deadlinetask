@@ -24,16 +24,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import ThemeSwitcher from "@/components/theme-switcher";
 
 const FormSchema = z.object({
-  bio: z
+  title: z
     .string()
     .min(10, {
-      message: "Bio must be at least 10 characters.",
+      message: "Description must be at least 10 characters.",
     })
     .max(160, {
-      message: "Bio must not be longer than 30 characters.",
+      message: "Description must not be longer than 30 characters.",
+    }),
+
+  description: z
+    .string()
+    .min(10, {
+      message: "Description must be at least 10 characters.",
+    })
+    .max(160, {
+      message: "Description must not be longer than 30 characters.",
     }),
 });
 
@@ -43,7 +53,7 @@ export default function TextareaForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast(`You submitted the following values: ${data.bio}`);
+    toast(`You submitted the following values: ${data.description}`);
   }
 
   return (
@@ -66,21 +76,30 @@ export default function TextareaForm() {
             >
               <FormField
                 control={form.control}
-                name="bio"
+                name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bio</FormLabel>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Создать ..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Tell us a little bit about yourself"
+                        placeholder=""
                         className="resize-none"
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      You can <span>@mention</span> other users and
-                      organizations.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
