@@ -253,7 +253,9 @@ export default function MyForm() {
                 )}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <div className="flex justify-center">
+              <Button type="submit">Submit</Button>
+            </div>
           </form>
         </Form>
       </CardContent>
