@@ -50,8 +50,8 @@ const FormSchema = z.object({
       message: "Tags must not be longer than 60 characters.",
     }),
   budget: z.array(z.number()).default([1000, 5000]),
-  deadline: z.number().positive(),
-  reminds: z.number().positive(),
+  deadline: z.coerce.number().positive(),
+  reminds: z.coerce.number().positive(),
 });
 
 export default function MyForm() {
@@ -108,7 +108,9 @@ export default function MyForm() {
         if (data.token) {
           localStorage.setItem("task_token", data.token);
         }
-        window.open(apiUrl, "_blank");
+        setTimeout(() => {
+          window.open(apiUrl, "_blank");
+        }, 3000);
       } else {
         toast.error("Запрос не отправлен");
       }
